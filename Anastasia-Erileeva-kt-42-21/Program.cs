@@ -1,4 +1,5 @@
 using Anastasia_Erileeva_kt_42_21.Database;
+using Anastasia_Erileeva_kt_42_21.ServiseExtensions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using NLog;
@@ -22,7 +23,7 @@ try
     builder.Services.AddDbContext<StudentDbContext>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-    //builder.Services.AddServices();
+    builder.Services.AddServices();
 
     var app = builder.Build();
 
@@ -33,7 +34,7 @@ try
         app.UseSwaggerUI();
     }
 
-    app.UseMiddleware<ExceptionHandlerMiddleware>();
+    //app.UseMiddleware<ExceptionHandlerMiddleware>();
 
     app.UseAuthorization();
 
