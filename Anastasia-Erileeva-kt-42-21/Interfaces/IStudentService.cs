@@ -10,6 +10,7 @@ namespace Anastasia_Erileeva_kt_42_21.Interfaces
         public Task<Student[]> GetStudentsByGroupAsync(StudentGroupFilter filter, CancellationToken cancellationToken);
         public Task<Student[]> GetStudentsByFamiliaAsync(StudentFIOFilter filter, CancellationToken cancellationToken);
         public Task<Student[]> GetStudentsByDeletionStatusAsync(StudentDeletionStatusFilter filter, CancellationToken cancellationToken);
+        public Task<Student[]> GetStudentsByFamiliaAllAsync(StudentFioAllFilter filter, CancellationToken cancellationToken);
     }
 
     public class StudentService : IStudentService
@@ -56,6 +57,15 @@ namespace Anastasia_Erileeva_kt_42_21.Interfaces
         {
             var students = _dbContext.Set<Student>()
                 .Where(w => w.DeletionStatus == filter.DeletionStatus).ToArrayAsync(cancellationToken);
+            return students;
+        }
+
+        public Task<Student[]> GetStudentsByFamiliaAllAsync(StudentFioAllFilter filter, CancellationToken cancellationToken)
+        {
+            var students = _dbContext.Set<Student>()
+                  //поиск по имени, фамилии и отчеству
+                  .Where(w => (w.FirstName == filter.Name) & (w.LastName == filter.LastName) & (w.Middlename == filter.MiddleName)).ToArrayAsync(cancellationToken);
+            //.Where(w => w.DeletionStatus == filter.DeletionStatus).ToArrayAsync(cancellationToken);
             return students;
         }
     }

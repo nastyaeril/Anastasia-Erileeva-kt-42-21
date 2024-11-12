@@ -11,7 +11,7 @@ namespace Anastasia_Erileeva_kt_42_21.Models
             public List<Subject>? Subject { get; set; }
             public bool IsValidGroupName()
             {
-                return Regex.Match(GroupName, @"/\D*-\d*-\d\d/g").Success;
+                return Regex.Match(GroupName, @"\D*-\d*-\d\d").Success;
             }
         }
     }
